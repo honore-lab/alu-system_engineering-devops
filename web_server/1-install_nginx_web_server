@@ -1,0 +1,65 @@
+#!/usr/bin/env bash
+# 1-install_nginx_web_server
+# Installs nginx, ensures it listens on port 80, and places an index containing "Holberton School".
+# Must be run as root.
+
+set -e
+
+# Ensure running as root
+if [ "$(id -u)" -ne 0 ]; then
+  echo "This script must be run as root (sudo)." >&2
+  exit 1
+fi
+
+export DEBIAN_FRONTEND=noninteractive
+
+# Update package lists and install nginx (auto yes)
+apt-get update -y
+apt-get install -y nginx
+
+# Ensure default web root exists
+WEBROOT="/var/www/html"
+mkdir -p "$WEBROOT"
+
+# Create index.html with the required string
+cat > "${WEBROOT}/index.html" <<'HTML'
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Holberton</title>
+  </head>
+  <body>
+    Holberton School for the win!
+  </body>
+</html>
+HTML
+
+# Make sure permissions are okay
+chown -R www-data:www-data "$WEBROOT"
+chmod 644 "${WEBROOT}/index.html"
+
+# Start or restart nginx without using systemctl
+if command -v service >/dev/null 2>&1; then
+  # Try restart first (works if already running), otherwise start
+  service nginx restart 2>/dev/null || service nginx start
+else
+  # Fallback to init script
+  if [ -x /etc/init.d/nginx ]; then
+    /etc/init.d/nginx restart 2>/dev/null || /etc/init.d/nginx start
+  fi
+fi
+
+# Simple check: curl localhost should contain "Holberton School"
+if command -v curl >/dev/null 2>&1; then
+  if curl -sS http://127.0.0.1/ | grep -q "Holberton School"; then
+    echo "Nginx installed and serving page containing 'Holberton School'."
+    exit 0
+  else
+    echo "Error: page does not contain the required string." >&2
+    exit 2
+  fi
+else
+  echo "Warning: curl not installed. Please verify http://127.0.0.1/ manually." >&2
+  exit 0
+fi
