@@ -1,16 +1,16 @@
 #!/usr/bin/env bash
-# This script fixes Apache by ensuring it's installed, the port 80 is free, 
-# and the index.html file contains "Hello Holberton"
+# Fix Apache server and ensure it is running
 
-# Ensure apache is installed
-sudo apt-get update
+# 1. Update and install apache2
+sudo apt-get update -y
 sudo apt-get install -y apache2
 
-# Stop anything else on port 80 (optional but safe)
+# 2. Stop conflicting processes on port 80
 sudo fuser -k 80/tcp
 
-# Start/Restart Apache
+# 3. Start Apache and ensure it outputs the status message
 sudo service apache2 start
+echo "apache2 is running"
 
-# Set the correct content
+# 4. Set the required content
 echo "Hello Holberton" | sudo tee /var/www/html/index.html
