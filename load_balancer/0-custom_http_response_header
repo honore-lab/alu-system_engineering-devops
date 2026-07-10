@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# Configure Nginx to add X-Served-By header with server hostname
+apt-get update
+apt-get install -y nginx
+# shellcheck disable=SC2154
+printf "server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+    root /var/www/html;
+    index index.html index.htm;
+    add_header X-Served-By $(hostname);
+    location / {
+        try_files \$uri \$uri/ =404;
+    }
+}" > /etc/nginx/sites-available/default
+service nginx restart
