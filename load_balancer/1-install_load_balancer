@@ -1,36 +1,16 @@
 #!/usr/bin/env bash
-# Install and configure HAProxy for roundrobin load balancing
+# This script configures a new Ubuntu machine to add an X-Served-By custom header
 apt-get update
-apt-get install -y haproxy
-
-# Overwrite config with minimal necessary setup
-cat > /etc/haproxy/haproxy.cfg <<EOF
-global
-    log /dev/log local0
-    log /dev/log local1 notice
-    maxconn 4096
-    user haproxy
-    group haproxy
-
-defaults
-    log global
-    mode http
-    option httplog
-    option dontlognull
-    timeout connect 5000
-    timeout client 50000
-    timeout server 50000
-
-frontend lb-frontend
-    bind *:80
-    mode http
-    default_backend web-servers
-
-backend web-servers
-    mode http
-    balance roundrobin
-    server 7069-web-01 3.85.164.195:80 check
-    server 7069-web-02 52.90.237.214:80 check
-EOF
-
-service haproxy restart
+apt-get install -y nginx
+# shellcheck disable=SC2154
+printf "server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+    root /var/www/html;
+    index index.html index.htm;
+    add_header X-Served-By \$hostname;
+    location / {
+        try_files \$uri \$uri/ =404;
+    }
+}" > /etc/nginx/sites-available/default
+service nginx restart
