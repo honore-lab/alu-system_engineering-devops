@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
-# Configure Nginx to listen on port 80 and restart the service
+# Configure Nginx to listen on port 80 and reload the service
 
-# Replace listen 8080 with listen 80 in the default site configuration
-sed -i 's/listen 8080 default_server;/listen 80 default_server;/g' /etc/nginx/sites-enabled/default
+# Update the listen port from 8080 to 80
+sed -i 's/listen 8080;/listen 80;/g' /etc/nginx/sites-enabled/default
 
-# Restart Nginx to apply changes
-service nginx restart
+# Use 'nginx -s reload' which is often more reliable than 'service restart' in containers
+nginx -s reload
