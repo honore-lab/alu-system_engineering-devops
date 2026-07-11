@@ -6,10 +6,9 @@ apt-get update
 apt-get install -y nginx
 
 # Wait a moment for files to be generated, then modify the config
-# We check if the file exists before running sed to avoid errors
 if [ -f /etc/nginx/sites-enabled/default ]; then
     sed -i 's/listen [0-9]\+/listen 80/g' /etc/nginx/sites-enabled/default
 fi
 
 # Start or restart the service
-service nginx start || service nginx restart
+service nginx restart
