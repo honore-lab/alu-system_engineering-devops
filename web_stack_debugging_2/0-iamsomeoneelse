@@ -1,2 +1,7 @@
 #!/usr/bin/env bash
-if id "$1" &>/dev/null; then echo "$1"; else echo "User does not exist"; fi
+# Run whoami as the user provided as a parameter
+if id "$1" &>/dev/null; then
+    sudo -u "$1" whoami
+else
+    echo "User does not exist"
+fi
