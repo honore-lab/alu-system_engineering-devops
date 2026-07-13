@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
-# Print the username provided
-# This script uses whoami logic
+# This script uses whoami to identify the user
 if id "$1" &>/dev/null; then
-    echo "$1"
+    su -c whoami "$1"
 else
     echo "User does not exist"
 fi
