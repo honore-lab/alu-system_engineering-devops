@@ -4,7 +4,7 @@
 apt-get update -y
 apt-get install -y nginx
 
-# Ensure the custom 404 page contains: Ceci n'est pas une page
+echo "Ceci n'est pas une page"
 echo "Ceci n'est pas une page" > /var/www/html/custom_404.html
 
 cat << 'EOF' > /etc/nginx/sites-available/default
