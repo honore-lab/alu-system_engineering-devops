@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# Connects to a remote server using a private key and specific user without using -l or long flags
+
+ssh -i ~/.ssh/school ubuntu@$1
