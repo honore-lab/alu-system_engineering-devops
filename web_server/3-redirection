@@ -1,10 +1,31 @@
 #!/usr/bin/env bash
-# Configures Nginx with a 301 redirection from /redirect_me to a target URL
+# Configures an Nginx server with a 301 redirect for /redirect_me
 
-apt-get update -y
-apt-get install nginx -y
+sudo apt-get update -y
+sudo apt-get install nginx -y
 
-# Insert redirection rule inside the server block of default site configuration
-sed -i "/listen 80 default_server;/a \    location /redirect_me {\n        return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;\n    }" /etc/nginx/sites-available/default
+sudo bash -c 'cat > /etc/nginx/sites-available/default << "EOF"
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
 
-/etc/init.d/nginx restart
+    root /var/www/html;
+    index index.html index.htm index.nginx-debian.html;
+
+    server_name _;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+
+    location /redirect_me {
+        return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
+    }
+}
+EOF'
+
+sudo rm -f /etc/nginx/sites-enabled/*
+sudo ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+
+sudo nginx -t
+sudo service nginx restart
