@@ -4,7 +4,6 @@
 apt-get update -y
 apt-get install -y nginx
 
-# Ensure the root index page contains the required string "Holberton School"
 echo "Holberton School" > /var/www/html/index.html
 
 service nginx restart
