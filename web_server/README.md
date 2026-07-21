@@ -1,0 +1,2 @@
+# Web Server Project
+This repository contains automated Bash scripts and configuration files for setting up and managing an Nginx web server on Ubuntu 16.04 LTS, handling file transfers, domain configurations, custom redirects, and error handling pages.
