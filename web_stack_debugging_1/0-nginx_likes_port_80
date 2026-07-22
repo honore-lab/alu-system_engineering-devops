@@ -1,3 +1,5 @@
 #!/usr/bin/env bash
-# Start Nginx service to listen on port 80
-service nginx start
+# Stop apache2 if running, and start nginx to listen on port 80
+service apache2 stop 2>/dev/null
+update-rc.d -f apache2 remove 2>/dev/null
+service nginx restart
