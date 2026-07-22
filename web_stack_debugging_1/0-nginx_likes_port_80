@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-# Replace port 8080 with port 80 in Nginx configuration and restart the service
+# Configure Nginx to listen on port 80 instead of 8080 and restart service
 sed -i 's/8080/80/g' /etc/nginx/sites-available/default
 service nginx restart
-curl -sI localhost:80 > /dev/null
