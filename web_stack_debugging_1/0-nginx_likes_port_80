@@ -1,4 +1,19 @@
 #!/usr/bin/env bash
-# Configure Nginx to listen on port 80 instead of 8080 and restart service
-sed -i 's/8080/80/g' /etc/nginx/sites-available/default
+# Configure Nginx to listen on port 80 by writing out the default server block and restarting
+cat << 'EOF' > /etc/nginx/sites-available/default
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+
+    root /var/www/html;
+    index index.html index.htm index.nginx-debian.html;
+
+    server_name _;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+}
+EOF
+
 service nginx restart
