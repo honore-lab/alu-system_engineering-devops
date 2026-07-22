@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-# Stop apache2 if running, and start nginx to listen on port 80
-service apache2 stop 2>/dev/null
-update-rc.d -f apache2 remove 2>/dev/null
+# Fix Nginx to listen on port 80 instead of 8080
+sed -i 's/8080/80/g' /etc/nginx/sites-enabled/default
 service nginx restart
