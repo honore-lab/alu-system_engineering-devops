@@ -4,10 +4,11 @@
 apt-get update -y
 apt-get install nginx -y
 
-# Create the custom 404 HTML file
+# Create the custom 404 page content
 echo "Ceci n'est pas une page" > /var/www/html/custom_404.html
 
-# Configure Nginx to use the custom 404 page and return 404 status code
+# Configure Nginx default site to handle 404 errors with the custom page
 sed -i "/server_name _;/a \    error_page 404 /custom_404.html;\n    location = /custom_404.html {\n        internal;\n    }" /etc/nginx/sites-available/default
 
+# Restart Nginx using init service
 service nginx restart
