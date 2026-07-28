@@ -7,4 +7,5 @@ apt-get install nginx -y
 # Insert the redirection rule into the default Nginx site configuration block
 sed -i "/server_name _;/a \    location /redirect_me {\n        return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;\n    }" /etc/nginx/sites-available/default
 
+# Restart Nginx using init service
 service nginx restart
