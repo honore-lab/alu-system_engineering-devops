@@ -1,9 +1,14 @@
 #!/usr/bin/env bash
-# Installs and configures an Nginx web server with Holberton School text at root
+# Installs and configures Nginx on an Ubuntu machine
 
 apt-get update -y
-apt-get install -y nginx
+apt-get install nginx -y
 
-echo "Holberton School" > /var/www/html/index.html
+# Configure Nginx to return "Holberton School for the win!" at the root
+echo "Holberton School for the win!" > /var/www/html/index.nginx-debian.html
 
+# Alternatively, ensure default index file reflects the required string
+echo "Holberton School for the win!" > /var/www/html/index.html
+
+# Start or restart Nginx using init script (without systemctl)
 service nginx restart
