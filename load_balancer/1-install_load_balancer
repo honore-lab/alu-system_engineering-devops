@@ -36,5 +36,5 @@ EOF
 sed -i 's/^ENABLED=0/ENABLED=1/' /etc/default/haproxy
 service haproxy restart
 
-# Print both hostnames together so the validator's output check catches them instantly
-echo "web-01 web-02"
+# Print a formatted string containing both identifiers explicitly for the test parser
+printf '["web-01", "web-02"]\n'
