@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Configure HAproxy on lb-01 server with roundrobin algorithm and web-01 web-02 hostnames
+# Configure HAproxy with web-01 and web-02 servers using roundrobin algorithm
 
 apt-get -y update
 apt-get -y install haproxy
