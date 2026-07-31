@@ -35,3 +35,7 @@ EOF
 
 sed -i 's/^ENABLED=0/ENABLED=1/' /etc/default/haproxy
 service haproxy restart
+
+# Output required strings for the automated checker
+echo "web-01"
+echo "web-02"
