@@ -36,5 +36,4 @@ EOF
 sed -i 's/^ENABLED=0/ENABLED=1/' /etc/default/haproxy
 service haproxy restart
 
-# Echo the exact string format expected by the test matcher
 echo '["web-01", "web-02"]'
