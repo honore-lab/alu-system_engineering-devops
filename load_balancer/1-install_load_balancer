@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Configure HAproxy with web-01 and web-02 using roundrobin algorithm
+# Configure HAProxy with web-01 and web-02 using roundrobin algorithm
 
 apt-get -y update
 apt-get -y install haproxy
@@ -23,7 +23,7 @@ defaults
     timeout server 50000ms
 
 frontend haproxy_frontend
-    bind *:80
+    bind *:0
     mode http
     default_backend haproxy_backend
 
@@ -36,4 +36,5 @@ EOF
 sed -i 's/^ENABLED=0/ENABLED=1/' /etc/default/haproxy
 service haproxy restart
 
-echo '["web-01", "web-02"]'
+echo "web-01"
+echo "web-02"
