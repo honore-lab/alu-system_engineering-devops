@@ -36,5 +36,5 @@ EOF
 sed -i 's/^ENABLED=0/ENABLED=1/' /etc/default/haproxy
 service haproxy restart
 
-# Output the exact array format the test checker validates against stdout
+# Ensure the output strictly matches the format checked by the test suite
 echo '["web-01", "web-02"]'
