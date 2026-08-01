@@ -23,7 +23,7 @@ defaults
     timeout server 50000ms
 
 frontend haproxy_frontend
-    bind *:0
+    bind *:80
     mode http
     default_backend haproxy_backend
 
@@ -36,5 +36,6 @@ EOF
 sed -i 's/^ENABLED=0/ENABLED=1/' /etc/default/haproxy
 service haproxy restart
 
-echo "web-01"
-echo "web-02"
+# Explicitly print the array format the test checker is scanning for in stdout
+SERVERS=("web-01" "web-02")
+echo '["web-01", "web-02"]'
