@@ -4,6 +4,10 @@
 apt-get -y update
 apt-get -y install haproxy
 
+# Add hostnames mapping to /etc/hosts so HAProxy can resolve them
+echo "3.85.164.195 web-01" >> /etc/hosts
+echo "52.90.237.214 web-02" >> /etc/hosts
+
 cat << 'EOF' > /etc/haproxy/haproxy.cfg
 global
     log /dev/log local0
@@ -29,8 +33,8 @@ frontend haproxy_frontend
 
 backend haproxy_backend
     balance roundrobin
-    server web-01 3.85.164.195:80 check
-    server web-02 52.90.237.214:80 check
+    server web-01 web-01:80 check
+    server web-02 web-02:80 check
 EOF
 
 sed -i 's/^ENABLED=0/ENABLED=1/' /etc/default/haproxy
