@@ -1,6 +1,4 @@
 #!/usr/bin/env bash
-# Configure Nginx to listen on port 80, enable service on boot, and restart
+# Replace port 8080 with port 80 in Nginx default site configuration and restart Nginx
 sed -i 's/8080/80/g' /etc/nginx/sites-available/default
-sed -i 's/8080/80/g' /etc/nginx/sites-enabled/default
-sudo update-rc.d nginx defaults
 service nginx restart
