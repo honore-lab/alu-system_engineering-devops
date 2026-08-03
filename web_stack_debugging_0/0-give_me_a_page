@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# This script installs Apache2 and configures it to return Hello Holberton
+# Fix my server with these magic lines
 apt-get update -y
 apt-get install -y apache2
 echo "Hello Holberton" > /var/www/html/index.html
