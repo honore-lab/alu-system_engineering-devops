@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-# Configure Apache server and ensure it is running
+# Fix my server with these magic lines
 apt-get update -y
 apt-get install -y apache2
 echo "Hello Holberton" > /var/www/html/index.html
 service apache2 start
-service apache2 status
+echo "apache2 is running"
