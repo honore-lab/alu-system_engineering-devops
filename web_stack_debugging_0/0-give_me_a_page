@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Fix my server with these magic lines
+# Install and start Apache2
 apt-get update -y
 apt-get install -y apache2
 echo "Hello Holberton" > /var/www/html/index.html
